@@ -8,10 +8,10 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-BENCHMARK_PATH="/fs/scratch/PAA0201/lzy37ld/OSWorld-G/to_submis/benchmark.json"
-RESULTS_BASE_DIR="/fs/scratch/PAA0201/lzy37ld/OSWorld-G/to_submis/results"
-METRICS_BASE_DIR="/fs/scratch/PAA0201/lzy37ld/OSWorld-G/to_submis/metric_results"
-REPORT_DIR="/fs/scratch/PAA0201/lzy37ld/OSWorld-G/to_submis/metric_reports"
+BENCHMARK_PATH="benchmark.json"
+RESULTS_BASE_DIR="results"
+METRICS_BASE_DIR="metric_results"
+REPORT_DIR="metric_reports"
 
 mkdir -p "$METRICS_BASE_DIR" "$REPORT_DIR"
 
