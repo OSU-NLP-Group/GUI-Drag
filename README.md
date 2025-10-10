@@ -35,7 +35,7 @@
 
 `GUI-Drag` dataset can be downloaded at [here](https://huggingface.co/datasets/osunlp/GUI-Drag-dataset).
 
-`GUI-Drag-3/7B` models which are trained via efficient continual training can be accessed at [here](https://huggingface.co/datasets/osunlp/GUI-Drag-dataset).
+`GUI-Drag-3/7B` models which are trained via efficient continual training can be accessed at [here](https://huggingface.co/osunlp/GUI-Drag-7B).
 
 ## Benchmarks
 
