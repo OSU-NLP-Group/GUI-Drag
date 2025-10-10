@@ -39,7 +39,7 @@
 
 ## Benchmarks
 
-The `ScreenDrag` benchmark can be found in the 
+The `ScreenDrag` benchmark can be found in the `benchmark.json` file. Note that you should first unzip the `image_and_ocr.zip` file to support the evaluation.
 
 ## Citations
 
