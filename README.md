@@ -18,7 +18,7 @@
 
 1. Unzip the `image_and_ocr.zip` in the root folder, which contains the examples of ScreenDrag benchmark and OCR results used during evaluation.
 
-2. Follow the commands in `evaluation/cli_run_drag.sh`. It supports the models containing GUI-Drag-3/7B (via vllm), Claude, Operator and UI-Tars.
+2. Follow the commands in `evaluation/cli_run_drag.sh`. It supports the models containing `GUI-Drag-3/7B (via vllm)`, `Claude computer use`, `OpenAI computer use` and `UI-Tars`.
 
 3. Calculate the metrics of the Success Rate and B-Dist via `metrics/cli_run_drag_metric_new.sh`. It will first output the metric results and summarize the model performance in a report with different breakdowns.
 
