@@ -1,21 +1,27 @@
-# DRAG Evaluation Bundle (to_submis)
+# Beyond Clicking: A Step Towards Generalist GUI Grounding via Text Dragging
 
-This folder contains a clean copy of the evaluation + metric tooling used in the paper. Everything is self-contained so you can run the drag benchmark, regenerate metrics (SR / B-Dist), and produce the leaderboard tables referenced in the manuscript.
 
-## Layout
+> Graphical user interface (GUI) grounding, the process of mapping human instructions to GUI actions, serves as a fundamental basis to autonomous GUI agents. While existing grounding models achieve promising performance to simulate the mouse click action on various click-based benchmarks, another essential mode of mouse interaction, namely dragging, remains largely underexplored. Yet, dragging the mouse to select and manipulate textual content represents a prevalent and important usage in practical GUI scenarios. To narrow this gap, we first introduce \textsc{GUI-Drag}, a diverse dataset of 161K text dragging examples synthesized through a scalable pipeline. To support systematic and robust evaluation, we further construct \textsc{ScreenDrag}, a benchmark with 5,333 examples spanning three levels of interface context, together with three dedicated metrics designed for assessing text dragging capability. Models trained on \textsc{GUI-Drag} with an efficient continual training strategy achieve substantial improvements on \textsc{ScreenDrag}, while preserving the original click-based performance on ScreenSpot, ScreenSpot-v2, and OSWorld-G. Our work encourages further research on broader GUI grounding beyond just clicking and paves way toward a truly generalist GUI grounding model.
 
-- `evaluation/eval_drag.py` – unified evaluation driver supporting **vLLM**, **Claude CUA**, **OpenAI Operator**, and **UI-TARS**.
-- `evaluation/cli_run_drag.sh` – cheat sheet with the exact commands we ran for each backend (edit paths / model names as needed).
-- `metrics/metric_new.py` – per-item metric computation (pixel threshold fixed at 3.0 by default).
-- `metrics/analysis_leaderboard_new.py` – aggregates metric outputs and reports **SR** (success rate) and **B-Dist** (mean bbox distance) only.
-- `metrics/cli_run_drag_metric_new.sh` – helper script to batch-run the metrics pipeline and export leaderboard reports.
-- `metrics/metric_reports/` (created on demand) – target folder for aggregated reports.
+![GUI-Drag Dataset Overview](assets/GUI_Drag.png)
 
-## Requirements
 
-- Python 3.10+
-- Core deps: `Pillow`, `tqdm`, `matplotlib` (optional for visualization), `openai`, `anthropic` (Bedrock client), `boto3` if you use Bedrock via AWS.
-- For vLLM runs: a running vLLM server exposing the model through an OpenAI-compatible endpoint (`http://host:port/v1`).
+
+## Setup
+
+- Python 3.12
+- `pip install requirement.txt`
+
+
+
+## Experiments
+
+1. Unzip the `image_and_ocr.zip` in the root folder, which contains the examples of ScreenDrag benchmark and OCR results used during evaluation.
+
+2. Follow the commands in `evaluation/cli_run_drag.sh`. It supports the models containing GUI-Drag-3/7B (via vllm), Claude, Operator and UI-Tars.
+
+3. Calculate the metrics of the Success Rate and B-Dist via `metrics/cli_run_drag_metric_new.sh`. It will first output the metric results and summarize the model performance in a report with different breakdowns.
+
 
 ### Credentials
 
@@ -23,44 +29,4 @@ This folder contains a clean copy of the evaluation + metric tooling used in the
 | --- | --- |
 | Claude CUA | `AWS_REGION`, `AWS_ACCESS_KEY`, `AWS_SECRET_KEY` (for Bedrock access) |
 | OpenAI Operator | `OPENAI_API_KEY` |
-| UI-TARS | whatever endpoint key the serving stack expects (the script assumes base URL + model name) |
 
-## Example Workflow (GUI-Drag-3B)
-
-### 1. Run the evaluation
-
-```bash
-cd /fs/scratch/PAA0201/lzy37ld/OSWorld-G/to_submis/evaluation
-
-BENCHMARK_PATH="/fs/scratch/PAA0201/lzy37ld/OSWorld-G/to_submis/benchmark.json"
-SAVE_DIR="/fs/scratch/PAA0201/lzy37ld/OSWorld-G/to_submis/results"
-
-python eval_drag.py --task inference --backend vllm \
-  --model_path osunlp/GUI-Drag-3B \
-  --benchmark "$BENCHMARK_PATH" \
-  --save_dir "$SAVE_DIR" \
-  --model_save_name GUI-Drag-3B \
-  --batch_size 4
-```
-
-This populates `to_submis/results/GUI-Drag-3B_vllm_thinking_false/` with one JSON per benchmark item.
-
-### 2. Compute SR / B-Dist metrics and leaderboard rows
-
-```bash
-cd /fs/scratch/PAA0201/lzy37ld/OSWorld-G/to_submis/metrics
-bash cli_run_drag_metric_new.sh
-```
-
-- Per-item metrics are written to `to_submis/metric_results/GUI-Drag-3B_vllm_thinking_false/`.
-- Aggregated reports (SR / B-Dist only) appear in `to_submis/metric_reports/leaderboard_report.txt` and `leaderboard_results.json`.
-
-### 3. (Optional) Adjust configuration for additional models
-
-If you evaluate more models, add their result-folder names to `INCLUDE_MODELS` inside `metrics/cli_run_drag_metric_new.sh` (the order in the array is the order used in the leaderboard table).
-
-## Notes
-
-- The evaluation script still supports visualization (`--task viz`) using the same folder layout as inference.
-- Threshold defaults are pinned to 3 pixels everywhere, matching the manuscript settings.
-- Feel free to copy additional assets (plots, notebooks, etc.) into this folder if you need them for the submission; just keep originals untouched outside `to_submis/`.
