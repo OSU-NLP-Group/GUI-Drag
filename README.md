@@ -37,6 +37,10 @@
 
 `GUI-Drag-3/7B` models which are trained via efficient continual training can be accessed at [here](https://huggingface.co/datasets/osunlp/GUI-Drag-dataset).
 
+## Benchmarks
+
+The `ScreenDrag` benchmark can be found in the 
+
 ## Citations
 
 If you find our data, model, benchmark or the general resources useful, please consider citting us via:
