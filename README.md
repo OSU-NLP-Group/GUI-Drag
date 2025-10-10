@@ -10,7 +10,7 @@
 ## Setup
 
 - Python 3.12
-- `pip install requirement.txt`
+- `pip install -r requirement.txt`
 
 
 
@@ -30,3 +30,13 @@
 | Claude CUA | `AWS_REGION`, `AWS_ACCESS_KEY`, `AWS_SECRET_KEY` (for Bedrock access) |
 | OpenAI Operator | `OPENAI_API_KEY` |
 
+
+## Datasets and Models
+
+`GUI-Drag` dataset can be downloaded at [here](https://huggingface.co/datasets/osunlp/GUI-Drag-dataset).
+
+`GUI-Drag-3/7B` models which are trained via efficient continual training can be accessed at [here](https://huggingface.co/datasets/osunlp/GUI-Drag-dataset).
+
+## Citations
+
+If you find our data, model, benchmark or the general resources useful, please consider citting us via:
