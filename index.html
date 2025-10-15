@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+  #benign-list p.is-selected {
+    background-color: #f0f0f0;
+  }
+
+  #benign-list p.is-selected {
+    background-color: #f0f0f0;
+  }
+
+    .sidebar {
+    position: fixed;
+    top: 100px;
+    right: 0;
+    width: 140px;
+    background-color: lightgray;
+    border: 1px solid #ddd;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+  .small-caps {
+      font-variant: small-caps;
+    }
+    .sidebar:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    .sidebar h4 {
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .sidebar ul li {
+        margin-bottom: 12px;
+    }
+    .sidebar ul li a {
+        text-decoration: none;
+        color: #555;
+        font-weight: bold;
+        font-size: 14px;
+        padding: 10px;
+        display: block;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        border-radius: 5px;
+    }
+    .sidebar ul li a:hover {
+        background-color: #ff5722;
+        color: #ffffff;
+    }
+
+    @media (max-width: 1374px) {
+        .sidebar {
+            display: none;
+        }
+    }
+
+    table {
+        width: 95%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+    th, td {
+        padding: 12px;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+        text-align: center;
+        vertical-align: middle;
+        font-weight: bold;
+    }
+    caption {
+        caption-side: top;
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+        font-size: 20px;
+    }
+    .highlight {
+        font-weight: bold;
+        color: #ff5722;
+    }
+    .hidden {
+        display: none;
+    }
+    p {
+      font-size: 16px;
+    }
+    ol {
+      font-size: 16px;
+    }
+    ul li {
+      font-size: 16px;
+    }
+    figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+    figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    figure figcaption {
+      margin-top: 10px;
+      font-size: 15px;
+      color: #555;
+    }
+    .analysis-list {
+      margin-left: 1.5em;
+      text-align: left;
+    }
+    .analysis-list li {
+      margin-bottom: 1.5em;
+    }
+    .analysis-list figure {
+      margin-top: 15px;
+    }
+    .analysis-list table thead th {
+      background-color: #ffffff;
+      color: #333;
+      border-bottom: 2px solid #ddd;
+    }
+    .results-table thead th {
+      background-color: #ffffff;
+      color: #333;
+      border-bottom: 2px solid #ddd;
+    }
+    .results-table tbody th {
+      background-color: #f9f9f9;
+    }
+</style>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="GUI-Drag: a large-scale dataset and ScreenDrag benchmark pushing GUI grounding beyond clicking via text dragging." />
+  <meta name="keywords" content="GUI grounding, text dragging, GUI-Drag, ScreenDrag, dataset, benchmark, multimodal, grounding, GUI agents" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GUI-Drag: Beyond Clicking</title>
+
+  <meta name="og:title" content="GUI-Drag" />
+  <meta name="og:description" content="Beyond Clicking: a step towards generalist GUI grounding via large-scale text dragging data and benchmark." />
+  <meta name="og:url" content="https://osu-nlp-group.github.io/" />
+  <meta name="og:image" content="static/images/gui_drag_overview.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="static/images/gui_drag_overview.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="OSU NLP" />
+
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+
+  <script src="./static/js/leaderboard_testmini.js"></script>
+  <style>
+    pre {
+        max-height: 400px;
+        overflow-x: auto;
+        overflow-y: auto;
+        background-color: #f0f0f0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <ul>
+    <li><a href="#overview">Abstract</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#dataset">GUI-Drag Training & Dataset</a></li>
+    <li><a href="#benchmark">ScreenDrag Benchmark</a></li>
+    <li><a href="#metrics">Evaluation Metrics</a></li>
+    <li><a href="#results">Key Results</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+    <li><a href="#Citations">Citations</a></li>
+  </ul>
+</div>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://osu-nlp-group.github.io/SeeAct/">SeeAct</a>
+          <a class="navbar-item" href="https://osu-nlp-group.github.io/UGround/">UGround</a>
+          <a class="navbar-item" href="https://osu-nlp-group.github.io/Mind2Web/">Mind2Web</a>
+          <a class="navbar-item" href="https://arxiv.org/abs/2411.06559">WebDreamer</a>
+          <a class="navbar-item" href="https://arxiv.org/abs/2404.07921">AmpleGCG</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <span class="mmmu" style="vertical-align: middle">Beyond Clicking:</span>
+          </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+        A Step Towards Generalist GUI Grounding via Text Dragging
+    </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Zeyi Liao<sup>1</sup></span>,
+            <span class="author-block">Yadong Lu<sup>2</sup></span>,
+            <span class="author-block">Boyu Gou<sup>1</sup></span>,
+            <span class="author-block">Huan Sun<sup>1</sup></span>,
+            <span class="author-block">Ahmed Awadallah<sup>2</sup></span>
+          </div>
+
+          <br>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>The Ohio State University,</span>
+            <span class="author-block"><sup>2</sup>Microsoft Research</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="mailto:liao.629@osu.edu">liao.629@osu.edu</a></span>
+          </div>
+
+          <br>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+
+              <span class="link-block">
+                  <a href="GUI-Drag.pdf" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                    <a href="https://github.com/OSU-NLP-Group/GUI-Drag"  target="_blank" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"></path></svg>
+                      </span>
+                      <span>Benchmark and Code</span>
+                    </a>
+                  </span>
+
+
+                  <span class="link-block">
+                    <a href="https://huggingface.co/osunlp/GUI-Drag-7B" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <img src="static/hf-logo.svg" alt="Hugging Face" style="height:1.2em;">
+                    </span>
+                    <span>GUI-Drag-7B</span>
+                  </a>
+                </span>
+
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/osunlp/GUI-Drag-3B" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <img src="static/hf-logo.svg" alt="Hugging Face" style="height:1.2em;">
+                  </span>
+                  <span>GUI-Drag-3B</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/osunlp/GUI-Drag-dataset" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="far fa-images"></i>
+                </span>
+                <span>GUI-Drag Dataset</span>
+              </a>
+            </span>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="overview">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <ul>
+            Graphical user interface (GUI) grounding, the process of mapping human instructions to GUI actions, serves as a fundamental basis to autonomous GUI agents. While existing grounding models achieve promising performance to simulate the mouse click action on various click-based benchmarks, another essential mode of mouse interaction, namely dragging, remains largely underexplored. Yet, dragging the mouse to select and manipulate textual content represents a prevalent and important usage in practical GUI scenarios.
+            To narrow this gap, we first introduce <span style="font-variant: small-caps; font-size: 1.2em;">GUI-Drag</span>, a diverse dataset of 161K text dragging examples synthesized through a scalable pipeline. To support systematic and robust evaluation, we further construct <span style="font-variant: small-caps; font-size: 1.2em;">Screen-Drag</span>, a benchmark with 5,333 examples spanning three levels of interface context, together with three dedicated metrics designed for assessing text dragging capability. Models trained on <span style="font-variant: small-caps; font-size: 1.2em;">GUI-Drag</span> with an efficient continual training strategy achieve substantial improvements on <span style="font-variant: small-caps; font-size: 1.2em;">Screen-Drag</span>, while preserving the original click-based performance on ScreenSpot, ScreenSpot-v2, and OSWorld-G. Our work encourages further research on broader GUI grounding beyond just clicking and paves way toward a truly generalist GUI grounding model.
+            <figure>
+              <img src="static/images/GUI-Drag-overview.png" alt="GUI-Drag pipeline and benchmark overview" style="width: 80%;" />
+              <figcaption>(Left) ScreenDrag benchmark across three interface contexts. (Right) GUI-Drag pipeline overview. The grounding model receives screenshot and instruction, and then outputs the starting and ending coordinates for text dragging.</figcaption>
+            </figure>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="videos">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Videos</h2>
+        <div class="content has-text-justified">
+        </div>
+        <video controls preload="metadata" style="max-width: 100%; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+          <source src="static/images/gui_drag_video_webpage.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="dataset">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">GUI-Drag Training & Dataset</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li>We design an scalable pipeline to synthesize text dragging examples directly from screenshots. It contains three stages: 1) Instruction Generation, which covers five categories of instructions for referencing text spans in five granularities, 2) Grounding, which leverages the OCR module to ground the instruction into pixel-level coordinates, and 3) Filtering, which filters out the examples that have ambiguous intention or have incorrect grounding.</li>
+            <li>We carefully analyze and filter existing GUI grounding datasets, including UGround and Jedi, to retain screenshots that are rich in textual content. In addition, we collect 20K public academic-style documents to better reflect real-world scenarios where text-dragging capabilities are frequently used, particularly in academic and document-editing contexts.</li>
+            <li>Overall, we synthesize 161K high-quality text dragging examples, which we denote as <span style="font-variant: small-caps; font-size: 1.2em;">GUI-Drag</span>.</li>
+            <li>Unlike prior works that train grounding models from a general foundation model with tons of examples, we adopt an efficient continual training strategy to enhance the text dragging capability while preserving the original click-based performance of the base model. Our models, trained based on Jedi-3B/7B, are denoted as <span style="font-variant: small-caps; font-size: 1.2em;">GUI-Drag-3B/7B</span>..</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="benchmark">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">ScreenDrag Benchmark</h2>
+        <div class="content has-text-justified">
+          <ul>
+          <li>ScreenDrag crafts 5,333 human-annotated examples across three popular productivity applications: Word, PowerPoint, and PDF reader, where the text dragging is a core part of user workflows.
+          <li> The screenshots within ScreenDrag span three levels of interface context — document view, application window, and full desktop. This design captures diverse real-world usage scenarios of GUI agents, particularly when employing MCP techniques.</li>
+          <li> The instructions within ScreenDrag are also categorized into different granularities and categories, and are formatted in both explicit and implicit forms.</li>
+          <li> We further split the benchmark into text-sparse and text-dense subsets to quantify the fine-grained localization difficulty.</p>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="metrics">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Evaluation Metrics</h2>
+        <div class="content has-text-justified">
+          <p>ScreenDrag reports complementary metrics that jointly capture action triggering, spatial alignment, and exact selection quality.</p>
+          <ul>
+            <li><strong>Drag Trigger Rate (DTR)</strong>: frequency of producing a complete dragging trajectory.</li>
+            <li><strong>Boundary Distance (B-Dist)</strong>: average index differences between predicted and ground-truth boundary boxes.</li>
+            <li><strong>Selection Rate (SR)</strong>: percentage of cases where the selected text span matches the gold annotation exactly.</li>
+          </ul>
+        </div>
+        <figure>
+          <img src="static/images/gui_drag_metrics.png" alt="ScreenDrag metrics illustration" />
+          <figcaption>A screenshot with SOM in gray. In the top-left black box, the target text span is the first sentence, "Like … tools.". Given the ground truth and predicted bboxes (The predicted start and end coordinates fall within bbox 0 and bbox 20, which we omit here to avoid clutter.), the B-Dist is 3 according to Equation 2 in the paper. In the bottom-right box, the target span is the last sentence, "For … Word." Here, both predictions (blue and green) yield zero B-Dist, but only the green coordinates correctly capture the target span. The blue prediction fails because its <span>d<sub>pixel</sub></span> does not satisfy the small threshold, whereas the green one succeed given the text snapping mechanism. </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Key Results on ScreenDrag</h2>
+        <div class="content has-text-justified" style="max-width: 900px; margin: 0 auto;">
+          <p>Continual training on GUI-Drag lifts success rates by up to <strong>18% absolute</strong> compared with the strongest baselines, while maintaining 100% drag triggering.</p>
+        </div>
+        <table class="results-table">
+          <caption>Performance over the ScreenDrag benchmark.</caption>
+          <thead>
+            <tr>
+              <th>Experimental Setting</th>
+              <th>DTR&#8593;</th>
+              <th>Text-Sparse B-Dist&#8595;</th>
+              <th>Text-Sparse SR&#8593;</th>
+              <th>Text-Dense B-Dist&#8595;</th>
+              <th>Text-Dense SR&#8593;</th>
+              <th>Avg. B-Dist&#8595;</th>
+              <th>Avg. SR&#8593;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="8"><strong>Open-Source</strong></td></tr>
+            <tr><td>Qwen2.5-VL-3B</td><td>5.0%</td><td>44.5</td><td>3.2%</td><td>43.8</td><td>0.0%</td><td>44.3</td><td>2.26%</td></tr>
+            <tr><td>Qwen2.5-VL-7B</td><td>5.0%</td><td>27.7</td><td>3.35%</td><td>30.8</td><td>1.16%</td><td>28.7</td><td>2.64%</td></tr>
+            <tr><td>Qwen2.5-VL-32B</td><td>55.8%</td><td>23.5</td><td>5.84%</td><td>27.1</td><td>1.65%</td><td>24.4</td><td>5.09%</td></tr>
+            <tr><td>Jedi-3B</td><td>94.1%</td><td>12.1</td><td>19.0%</td><td>17.2</td><td>8.53%</td><td>13.4</td><td>16.3%</td></tr>
+            <tr><td>Jedi-7B</td><td>77.5%</td><td>14.3</td><td>12.1%</td><td>18.3</td><td>4.99%</td><td>15.4</td><td>10.3%</td></tr>
+            <tr><td>UI-TARS-1.5-7B*</td><td>84.6%</td><td>13.0</td><td>23.6%</td><td>19.5</td><td>9.36%</td><td>14.7</td><td>20.0%</td></tr>
+            <tr><td colspan="8"><strong>Closed-Source</strong></td></tr>
+            <tr><td>OpenAI CUA*</td><td>85.7%</td><td>9.70</td><td>21.4%</td><td>12.98</td><td>8.13%</td><td>10.1</td><td>16.0%</td></tr>
+            <tr><td>Claude CUA*</td><td>47.4%</td><td>10.44</td><td>17.0%</td><td>8.92</td><td>12.59%</td><td>10.5</td><td>18.1%</td></tr>
+            <tr><td>OpenAI CUA (w/ hint)*</td><td>91.7%</td><td>8.68</td><td>18.0%</td><td>12.83</td><td>6.74%</td><td>9.15</td><td>16.1%</td></tr>
+            <tr><td>Claude CUA (w/ hint)*</td><td><span style="text-decoration: underline;">96.9%</span></td><td>8.63</td><td>16.9%</td><td>10.74</td><td>11.39%</td><td>9.73</td><td>16.6%</td></tr>
+            <tr><td colspan="8"><strong>Ours</strong></td></tr>
+            <tr><td>Jedi-3B (Drag)</td><td><span class="highlight">100.0%</span></td><td>7.9</td><td><span style="text-decoration: underline;">39.7%</span></td><td>9.2</td><td><span style="text-decoration: underline;">20.1%</span></td><td>8.2</td><td><span style="text-decoration: underline;">34.7%</span></td></tr>
+            <tr><td>Jedi-7B (Drag)</td><td><span class="highlight">100.0%</span></td><td>7.4</td><td>36.1%</td><td>8.8</td><td>16.6%</td><td>7.7</td><td>31.2%</td></tr>
+            <tr><td>GUI-Drag-3B</td><td><span class="highlight">100.0%</span></td><td><span style="text-decoration: underline;">6.9</span></td><td><span class="highlight">43.6%</span></td><td><span style="text-decoration: underline;">7.2</span></td><td><span class="highlight">22.9%</span></td><td><span style="text-decoration: underline;">7.0</span></td><td><span class="highlight">38.1%</span></td></tr>
+            <tr><td>GUI-Drag-7B</td><td><span class="highlight">100.0%</span></td><td><span class="highlight">6.2</span></td><td>38.1%</td><td><span class="highlight">6.7</span></td><td>19.8%</td><td><span class="highlight">6.4</span></td><td>33.1%</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size: 15px;">* Models with native drag support. Lower is better for B-Dist; higher is better otherwise. Highlighted entries mark the best, underlined entries mark the second best.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="analysis">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Analysis Highlights</h2>
+        <div class="content has-text-justified">
+          <ol class="analysis-list">
+            <li>
+              <strong>Bias toward clicking.</strong> Existing grounding models are heavily biased toward click actions, even when the instructions explicitly require dragging.
+              <figure>
+                <img src="static/images/gui_drag_action_distribution.png" alt="Distribution of dragging actions" />
+                <figcaption>Action Distributions.</figcaption>
+              </figure>
+            </li>
+            <li>
+              <strong>Continual training effectiveness.</strong> Continual training effectively enhances text dragging capability while preserving the original click-based performance.
+              <figure>
+                <img src="static/images/gui_drag_click_and_drag.png" alt="Drag and click performance trade-off" style="width: 30%;" />
+                <figcaption>Continual training results on ScreenDrag and click benchmarks (ScreenSpot, ScreenSpot-v2, OSWorld-G; averaged).</figcaption>
+              </figure>
+            </li>
+            <li>
+              <strong>Practical agent gains.</strong> Case studies on OSWorld show GUI-Drag enables agents to follow natural strategies instead of relying on peculiar shortcuts.
+              <table>
+                <caption>OSWorld case study success rates (SR).</caption>
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>OpenAI CUA</th>
+                    <th>Claude CUA</th>
+                    <th>o3</th>
+                    <th>o3 + GUI-Drag-7B</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">SR</th>
+                    <td>2/3</td>
+                    <td>2/3</td>
+                    <td>0/3</td>
+                    <td>3/3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="Citations">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Citations</h2>
+        <div class="content has-text-justified">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>© 2025 OSU NLP Group &amp; Collaborators. Built with Bulma.</p>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
