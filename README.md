@@ -16,7 +16,7 @@
 
 ## Experiments
 
-1. Unzip the `image_and_ocr.zip` in the root folder, which contains the examples of ScreenDrag benchmark and OCR results used during evaluation.
+1. Unzip the `image_and_ocr.zip` in the root folder, which contains the examples of the ScreenDrag benchmark and OCR results used during evaluation.
 
 2. Follow the commands in `evaluation/cli_run_drag.sh`. It supports the models containing `GUI-Drag-3/7B (via vllm)`, `Claude computer use`, `OpenAI computer use` and `UI-Tars`.
 
@@ -35,7 +35,7 @@
 
 `GUI-Drag` dataset can be downloaded at [here](https://huggingface.co/datasets/osunlp/GUI-Drag-dataset).
 
-`GUI-Drag-3/7B` models which are trained via efficient continual training can be accessed at [here](https://huggingface.co/osunlp/GUI-Drag-7B).
+`GUI-Drag-3/7B` models, which are trained via efficient continual training, can be accessed at [here](https://huggingface.co/osunlp/GUI-Drag-7B).
 
 ## Benchmarks
 
@@ -43,6 +43,6 @@ The `ScreenDrag` benchmark can be found in the `benchmark.json` file. Note that 
 
 ## Citations
 
-If you find our data, model, benchmark or the general resources useful, please consider citting us via:
+If you find our data, model, benchmark or the general resources useful, please consider citing us via:
 
 TODO
