@@ -45,4 +45,11 @@ The `ScreenDrag` benchmark can be found in the `benchmark.json` file. Note that 
 
 If you find our data, model, benchmark or the general resources useful, please consider citing us via:
 
-TODO
+```bash
+@article{liao2025beyond,
+  title={Beyond Clicking: A Step Towards Generalist GUI Grounding via Text Dragging},
+  author={Liao, Zeyi and Lu, Yadong and Gou, Boyu and Sun, Huan and Awadallah, Ahmed},
+  journal={arXiv preprint arXiv:2601.06031},
+  year={2025}
+}
+```
